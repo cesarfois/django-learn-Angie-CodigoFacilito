@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path
 
 
-from mascota.views import index_mascota
+from mascota.views import index_mascota, mascota_view
 from adopcion.views import index_adopcion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mascota/', index_mascota, name="mascota"),
+    path('mascota/', index_mascota, name="index"),
+    path('mascota/nuevo', mascota_view, name="mascota_nuevo"),
     path('adopcion/', index_adopcion, name="adopcion"),
 
 
