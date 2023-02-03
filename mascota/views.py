@@ -27,6 +27,18 @@ def mascota_view(request):
 
 
 def mascota_list(request):
-    mascota = Mascota.objects.all()    
+    mascota = Mascota.objects.all().order_by('id', 'nombre')    
     contexto = {'mascotas': mascota}
     return render(request, 'mascota/mascota_list.html', contexto)
+
+
+def mascota_edit(request, id_mascota):
+    mascota = Mascota.objects.get(id=id_mascota)
+    if request.method == 'GET':
+        form = MascotaForm(instance=mascota)
+    else:
+        form = MascotaForm(request.POST, instance=mascota)
+        if form.is_valid():
+            form.save()
+        return redirect('mascota_listar')
+    return render(request, 'mascota/mascota_form.html', {'form': form})    
